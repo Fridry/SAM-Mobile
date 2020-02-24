@@ -1,0 +1,64 @@
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+
+const TelaData = ({ navigation }) => {
+  const local = navigation.state.params.dados.local;
+  const especialidade = navigation.state.params.dados;
+
+  console.log(navigation.state);
+  return (
+    <View>
+      <Text>Data</Text>
+      <Text>
+        {local.nomeLocal} e {local.idLocal}
+      </Text>
+      <Text>
+        {especialidade.nomeEspec} e {especialidade.idEspec}
+      </Text>
+      <Button
+        title="Ir hora"
+        onPress={() =>
+          navigation.navigate('Hora', {
+            dados: {
+              data: '15/08/1993',
+              local,
+              especialidade,
+            },
+          })
+        }
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+};
+
+export default TelaData;
+
+
+ const local = navigation.state.params.dados.local;
+  const especialidade = navigation.state.params.dados.especialidade;
+  const data = navigation.state.params.dados.data;
+
+  return (
+    <View>
+      <Text>Hora</Text>
+      <Text>
+        {local.nomeLocal} e {local.idLocal}
+      </Text>
+      <Text>
+        {especialidade.nomeEspec} e {especialidade.idEspec}
+      </Text>
+      <Text>{data}</Text>
+      <Button
+        title="Confirmar"
+        onPress={() =>
+          navigation.navigate('Confirmacao', {
+            dados: {
+              hora: '08:00',
+              local,
+              especialidade,
+              data,
+            },
+          })
+        }
+      />
