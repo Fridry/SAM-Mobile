@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -16,12 +17,17 @@ const TelaLocal = ({ navigation }) => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const dadosData = navigation.state.params.dadosData;
+  const dadosLocal = navigation.state.params.dadosData.dadosLocal;
+  const dadosEspec = navigation.state.params.dadosData.dadosEspec;
+
   const resultsApi = async () => {
     try {
-      const response = await api.get('/horarios');
+      const response = await api.get(`/horarios?data=${dadosData.data}`);
 
       setResults(response.data);
     } catch (error) {
+      console.log(error);
       setErrorMessage('Algo de errado ocorreu.');
     }
   };
@@ -29,10 +35,6 @@ const TelaLocal = ({ navigation }) => {
   useEffect(() => {
     resultsApi();
   }, []);
-
-  const dadosData = navigation.state.params.dadosData;
-  const dadosLocal = navigation.state.params.dadosData.dadosLocal;
-  const dadosEspec = navigation.state.params.dadosData.dadosEspec;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,10 +71,6 @@ const TelaLocal = ({ navigation }) => {
               );
             }}
           />
-
-          <Text>{dadosData.data}</Text>
-          <Text>{dadosLocal.nomeLocal}</Text>
-          <Text>{dadosEspec.nomeEspec}</Text>
           <Button
             rounded
             block

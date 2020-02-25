@@ -3,6 +3,8 @@ import { Text, StyleSheet, Dimensions } from 'react-native';
 
 import { Container, Content, Card, CardItem, Body, Button } from 'native-base';
 
+import { format } from 'date-fns';
+
 const { width: WIDTH } = Dimensions.get('window');
 
 const Agendamento = ({ navigation }) => {
@@ -10,6 +12,8 @@ const Agendamento = ({ navigation }) => {
   const dadosEspec = navigation.state.params.dados.dadosEspec;
   const data = navigation.state.params.dados.dadosData;
   const hora = navigation.state.params.dados.hora;
+
+  const dataDoAntendimento = format(data.data, 'dd/MM/yyyy');
 
   return (
     <Container>
@@ -24,7 +28,7 @@ const Agendamento = ({ navigation }) => {
                 Especialidade: {dadosEspec.nomeEspec}
               </Text>
               <Text style={styles.texto}>Local: {dadosLocal.nomeLocal}</Text>
-              <Text style={styles.texto}>Data: {data.data}</Text>
+              <Text style={styles.texto}>Data: {dataDoAntendimento}</Text>
               <Text style={styles.texto}>Hora: {hora}</Text>
               <Button
                 rounded

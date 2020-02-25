@@ -58,7 +58,7 @@ const TelaLocal = ({ navigation }) => {
         onPress={() =>
           navigation.navigate('Hora', {
             dadosData: {
-              data: format(date, 'dd/MM/yyyy'),
+              data: date,
               dadosEspec,
               dadosLocal,
             },
@@ -75,8 +75,6 @@ const TelaLocal = ({ navigation }) => {
         style={styles.voltar}>
         <Text style={styles.btnTexto}>Voltar</Text>
       </Button>
-      <Text>{dadosLocal.nomeLocal}</Text>
-      <Text>{dadosEspec.nomeEspec}</Text>
     </SafeAreaView>
   );
 };

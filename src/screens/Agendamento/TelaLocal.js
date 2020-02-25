@@ -77,7 +77,6 @@ const TelaLocal = ({ navigation }) => {
           </Button>
         </View>
       )}
-      <Text>{dadosEspec.nomeEspec}</Text>
     </SafeAreaView>
   );
 };
