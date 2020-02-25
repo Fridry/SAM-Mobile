@@ -4,6 +4,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Button } from 'native-base';
 
+import { format } from 'date-fns';
+
 const { width: WIDTH } = Dimensions.get('window');
 
 const TelaLocal = ({ navigation }) => {
@@ -23,6 +25,9 @@ const TelaLocal = ({ navigation }) => {
   const showDatepicker = () => {
     showMode('date');
   };
+
+  const dadosLocal = navigation.state.params.dadosLocal;
+  const dadosEspec = navigation.state.params.dadosLocal.dadosEspec;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,11 +51,19 @@ const TelaLocal = ({ navigation }) => {
         />
       )}
 
-      <Text style={styles.tituloData}>{date.toDateString()}</Text>
+      <Text style={styles.tituloData}>{format(date, 'dd/MM/yyyy')}</Text>
       <Button
         rounded
         block
-        onPress={() => navigation.navigate('Hora', {})}
+        onPress={() =>
+          navigation.navigate('Hora', {
+            dadosData: {
+              data: format(date, 'dd/MM/yyyy'),
+              dadosEspec,
+              dadosLocal,
+            },
+          })
+        }
         style={styles.voltar}>
         <Text style={styles.btnTexto}>Selecionar a Hora</Text>
       </Button>
@@ -62,6 +75,8 @@ const TelaLocal = ({ navigation }) => {
         style={styles.voltar}>
         <Text style={styles.btnTexto}>Voltar</Text>
       </Button>
+      <Text>{dadosLocal.nomeLocal}</Text>
+      <Text>{dadosEspec.nomeEspec}</Text>
     </SafeAreaView>
   );
 };

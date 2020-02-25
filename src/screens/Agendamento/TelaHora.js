@@ -30,6 +30,10 @@ const TelaLocal = ({ navigation }) => {
     resultsApi();
   }, []);
 
+  const dadosData = navigation.state.params.dadosData;
+  const dadosLocal = navigation.state.params.dadosData.dadosLocal;
+  const dadosEspec = navigation.state.params.dadosData.dadosEspec;
+
   return (
     <SafeAreaView style={styles.container}>
       {errorMessage ? <Text>{errorMessage}</Text> : null}
@@ -50,12 +54,25 @@ const TelaLocal = ({ navigation }) => {
               return (
                 <TouchableOpacity
                   style={styles.btnAgendar}
-                  onPress={() => navigation.navigate('Confirmacao')}>
+                  onPress={() =>
+                    navigation.navigate('Confirmacao', {
+                      dados: {
+                        hora: item.hora,
+                        dadosData,
+                        dadosLocal,
+                        dadosEspec,
+                      },
+                    })
+                  }>
                   <Text style={styles.btnTexto}>{item.hora}</Text>
                 </TouchableOpacity>
               );
             }}
           />
+
+          <Text>{dadosData.data}</Text>
+          <Text>{dadosLocal.nomeLocal}</Text>
+          <Text>{dadosEspec.nomeEspec}</Text>
           <Button
             rounded
             block

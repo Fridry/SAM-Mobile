@@ -54,8 +54,10 @@ const TelaEspec = ({ navigation }) => {
                   style={styles.btnAgendar}
                   onPress={() =>
                     navigation.navigate('Local', {
-                      nomeEspec: item.tipo_especialidade,
-                      idEspec: item.id_especialidade,
+                      dadosEspec: {
+                        nomeEspec: item.tipo_especialidade,
+                        idEspec: item.id_especialidade,
+                      },
                     })
                   }>
                   <Text style={styles.btnTexto}>{item.tipo_especialidade}</Text>

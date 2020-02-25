@@ -6,10 +6,10 @@ import { Container, Content, Card, CardItem, Body, Button } from 'native-base';
 const { width: WIDTH } = Dimensions.get('window');
 
 const Agendamento = ({ navigation }) => {
-  // const { nomeLocal } = navigation.state.params.dados.local;
-  // const { nomeEspec } = navigation.state.params.dados.especialidade;
-  // const data = navigation.state.params.dados.data;
-  // const hora = navigation.state.params.dados.hora;
+  const dadosLocal = navigation.state.params.dados.dadosLocal;
+  const dadosEspec = navigation.state.params.dados.dadosEspec;
+  const data = navigation.state.params.dados.dadosData;
+  const hora = navigation.state.params.dados.hora;
 
   return (
     <Container>
@@ -20,10 +20,12 @@ const Agendamento = ({ navigation }) => {
               <Text style={styles.agendaTexto}>
                 Verifique as informações de agendamento antes de confirmar:
               </Text>
-              <Text style={styles.texto}>Especialidade: </Text>
-              <Text style={styles.texto}>Local: </Text>
-              <Text style={styles.texto}>Data: </Text>
-              <Text style={styles.texto}>Hora: </Text>
+              <Text style={styles.texto}>
+                Especialidade: {dadosEspec.nomeEspec}
+              </Text>
+              <Text style={styles.texto}>Local: {dadosLocal.nomeLocal}</Text>
+              <Text style={styles.texto}>Data: {data.data}</Text>
+              <Text style={styles.texto}>Hora: {hora}</Text>
               <Button
                 rounded
                 block

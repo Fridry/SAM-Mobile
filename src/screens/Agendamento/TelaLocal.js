@@ -33,6 +33,8 @@ const TelaLocal = ({ navigation }) => {
     resultsApi();
   }, []);
 
+  const dadosEspec = navigation.state.params.dadosEspec;
+
   return (
     <SafeAreaView style={styles.container}>
       {errorMessage ? <Text>{errorMessage}</Text> : null}
@@ -54,8 +56,11 @@ const TelaLocal = ({ navigation }) => {
                   style={styles.btnAgendar}
                   onPress={() =>
                     navigation.navigate('Data', {
-                      nomeLocal: item.nomeLocal,
-                      idLocal: item.id_local,
+                      dadosLocal: {
+                        nomeLocal: item.nome_local,
+                        idLocal: item.id_local,
+                        dadosEspec,
+                      },
                     })
                   }>
                   <Text style={styles.btnTexto}>{item.nome_local}</Text>
@@ -72,6 +77,7 @@ const TelaLocal = ({ navigation }) => {
           </Button>
         </View>
       )}
+      <Text>{dadosEspec.nomeEspec}</Text>
     </SafeAreaView>
   );
 };
