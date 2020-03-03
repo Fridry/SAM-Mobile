@@ -8,13 +8,17 @@ import {
 } from 'react-native';
 import { Content, Card, CardItem, Body } from 'native-base';
 import { format, parseISO } from 'date-fns';
+import { formatToTimeZone } from 'date-fns-timezone';
 
 const { width: WIDTH } = Dimensions.get('window');
 
-const itemAgendamento = ({ navigation, especialidade, local, horario }) => {
+const itemAgendamento = ({ navigation, especialidade, local, horario, id }) => {
   const dataIso = parseISO(horario);
   const novaData = format(dataIso, 'dd/MM/yyyy');
-  const novaHora = format(dataIso, 'HH:mm');
+  //const novaHora = format(dataIso, 'HH:mm');
+  const novaHora = formatToTimeZone(dataIso, 'HH:mm', {
+    timeZone: 'America/Sao_Paulo',
+  });
 
   return (
     <View style={styles.container}>
@@ -33,7 +37,7 @@ const itemAgendamento = ({ navigation, especialidade, local, horario }) => {
           <CardItem footer>
             <TouchableOpacity
               style={styles.btnCancela}
-              onPress={() => navigation.navigate('Cancelamento')}>
+              onPress={() => navigation.navigate('Cancelamento', { id })}>
               <Text style={styles.btnTexto}>Cancelar agendamento</Text>
             </TouchableOpacity>
           </CardItem>

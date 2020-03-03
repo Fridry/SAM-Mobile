@@ -21,7 +21,7 @@ const Agenda = ({ navigation }) => {
 
   const resultsApi = async () => {
     try {
-      const response = await api.get('/agenda/usuario/10');
+      const response = await api.get('/agenda/usuario/8');
 
       setResults(response.data);
     } catch (error) {
@@ -29,9 +29,7 @@ const Agenda = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    resultsApi();
-  }, []);
+  resultsApi();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,6 +57,7 @@ const Agenda = ({ navigation }) => {
                 local={item.nome_local}
                 horario={item.dataHora}
                 navigation={navigation}
+                id={item.id_agendamento}
               />
             );
           }}
@@ -69,6 +68,9 @@ const Agenda = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   btnTexto: {
     color: '#FFF',
     fontSize: 16,

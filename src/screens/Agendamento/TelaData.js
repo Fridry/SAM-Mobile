@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Button } from 'native-base';
@@ -14,7 +21,7 @@ const TelaLocal = ({ navigation }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-
+    setShow(Platform.OS === 'ios' ? true : false);
     setDate(currentDate);
   };
 

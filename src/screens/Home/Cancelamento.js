@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {
   Container,
@@ -17,11 +18,30 @@ import {
 
 const { width: WIDTH } = Dimensions.get('window');
 
-const Cancelamento = ({ especialidade, local, data, hora }) => {
+import api from '../../services/api/api';
+
+const Cancelamento = ({ navigation }) => {
   const [check, setCheck] = useState(false);
 
   const checkBox = () => {
     check === false ? setCheck(true) : setCheck(false);
+  };
+
+  const id = navigation.state.params.id;
+
+  const cancelar = async () => {
+    try {
+      const response = await api.patch('/cancelamento/' + id);
+
+      if (response.status === 200) {
+        Alert.alert('Sucesso', 'Atendimento cancelado com sucesso!');
+        navigation.navigate('Home');
+      } else {
+        console.log('error');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -52,7 +72,7 @@ const Cancelamento = ({ especialidade, local, data, hora }) => {
                 </Text>
               </View>
               {check === true ? (
-                <TouchableOpacity style={styles.btnCancela}>
+                <TouchableOpacity style={styles.btnCancela} onPress={cancelar}>
                   <Text style={styles.cancelaTexto}>Cancelar</Text>
                 </TouchableOpacity>
               ) : null}

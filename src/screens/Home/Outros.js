@@ -11,7 +11,7 @@ const Outros = () => {
 
   const resultsApi = async () => {
     try {
-      const response = await api.get('/usuario/6');
+      const response = await api.get('/usuario/4');
 
       setResults(response.data);
     } catch (error) {
@@ -41,9 +41,7 @@ const Outros = () => {
                 </Text>
                 <Text style={styles.dadosTexto}>Gênero: {item.genero}</Text>
                 <Text style={styles.dadosTexto}>CPF: {item.cpf}</Text>
-                <Text style={styles.dadosTexto}>
-                  Número SUS: {item.num_sus}
-                </Text>
+                <Text style={styles.dadosTexto}>CNS: {item.num_sus}</Text>
                 <Text style={styles.dadosTexto}>Email: {item.email}</Text>
                 <Text style={styles.dadosTexto}>Telefone: {item.telefone}</Text>
                 <Text style={styles.dadosTexto}>Endereço: {item.rua}</Text>

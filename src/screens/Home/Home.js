@@ -13,13 +13,7 @@ const Home = ({ navigation }) => {
       <Tabs style={styles.tabMenu}>
         <Tab heading="Agendamentos">
           <Text style={styles.agendaTitulos}>Meus Agendamentos</Text>
-          <Agenda
-            especialidade={'Clínica Médica'}
-            local={'Hospital'}
-            data={'15/08/2020'}
-            hora={'15:00'}
-            navigation={navigation}
-          />
+          <Agenda navigation={navigation} />
         </Tab>
 
         <Tab heading="Eventos">

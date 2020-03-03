@@ -1,19 +1,45 @@
-import React from 'react';
-import { Text, StyleSheet, Dimensions } from 'react-native';
-
+import React, { useState } from 'react';
+import { Text, StyleSheet, Dimensions, Alert } from 'react-native';
+import { format } from 'date-fns';
 import { Container, Content, Card, CardItem, Body, Button } from 'native-base';
 
-import { format } from 'date-fns';
+import api from '../../services/api/api';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 const Agendamento = ({ navigation }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const dadosLocal = navigation.state.params.dados.dadosLocal;
   const dadosEspec = navigation.state.params.dados.dadosEspec;
   const data = navigation.state.params.dados.dadosData;
   const hora = navigation.state.params.dados.hora;
 
   const dataDoAntendimento = format(data.data, 'dd/MM/yyyy');
+  const dataFormatBanco = format(data.data, 'yyyy-MM-dd');
+  const dataHora = dataFormatBanco + ' ' + hora;
+
+  const criarAgengamento = async () => {
+    try {
+      let dados = {
+        idPessoa: 8,
+        especialidade: dadosEspec.idEspec,
+        local: dadosLocal.idLocal,
+        dataHora: dataHora, //2020-02-29 08:00:00
+      };
+      const response = await api.post('/agendamento', dados);
+
+      if (response.status === 200) {
+        Alert.alert('Sucesso', 'Atendimento agendado com sucesso!');
+        navigation.navigate('Home');
+      } else {
+        console.log('error');
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Algo de errado ocorreu.');
+    }
+  };
 
   return (
     <Container>
@@ -33,7 +59,7 @@ const Agendamento = ({ navigation }) => {
               <Button
                 rounded
                 block
-                onPress={() => navigation.goBack()}
+                onPress={criarAgengamento}
                 style={styles.btnAgendar}>
                 <Text style={styles.btnTexto}>Agendar</Text>
               </Button>
