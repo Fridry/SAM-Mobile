@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Card, CardItem, Body } from 'native-base';
 import { format, parseISO } from 'date-fns';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import api from '../../services/api/api';
 
 const Outros = () => {
@@ -11,7 +13,8 @@ const Outros = () => {
 
   const resultsApi = async () => {
     try {
-      const response = await api.get('/usuario/4');
+      const idLogin = await AsyncStorage.getItem('@idLogin');
+      const response = await api.get('/usuario/' + idLogin);
 
       setResults(response.data);
     } catch (error) {
@@ -30,6 +33,7 @@ const Outros = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Card>
         <CardItem bordered>
           {results.map(item => {

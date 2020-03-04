@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,10 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-community/async-storage';
+
+import api from '../../services/api/api';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -25,13 +29,50 @@ const mostrarAlertaCadastro = () => {
   );
 };
 
-const Login = () => {
+const Login = ({ navigation }) => {
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const login = async () => {
+    if (usuario && senha) {
+      try {
+        let dados = {
+          usuario,
+          senha,
+        };
+        const response = await api.post('/login', dados);
+
+        const resultado = response.data;
+
+        if (resultado.length === 1) {
+          setSenha('');
+          setUsuario('');
+          const idLogin = resultado[0].id_pessoa;
+          const nome = resultado[0].nome;
+          await AsyncStorage.setItem('@idLogin', idLogin.toString());
+          await AsyncStorage.setItem('@nome', nome);
+          navigation.navigate('Home');
+        } else {
+          Alert.alert(resultado);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      Alert.alert(
+        'Usuário ou senha inválidos!',
+        'Digite o usuário e/ou senha!',
+      );
+      setSenha('');
+      setUsuario('');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.backgroundContainer}>
       <View style={styles.logoContainer}>
         <Text style={styles.logoTexto}>Sistema de agendamentos médicos</Text>
       </View>
-
       <View style={styles.inputContainer}>
         <Icon name="user" size={28} color="#FFF" style={styles.inputIcon} />
         <TextInput
@@ -39,9 +80,10 @@ const Login = () => {
           placeholder="Usuário"
           placeholderTextColor="#FFF"
           underlineColorAndroid="transparent"
+          value={usuario}
+          onChangeText={setUsuario}
         />
       </View>
-
       <View style={styles.inputContainer}>
         <Icon name="lock" size={28} color="#FFF" style={styles.inputIcon} />
         <TextInput
@@ -50,17 +92,16 @@ const Login = () => {
           secureTextEntry
           placeholderTextColor="#FFF"
           underlineColorAndroid="transparent"
+          value={senha}
+          onChangeText={setSenha}
         />
       </View>
-
       <TouchableOpacity onPress={mostrarAlertaSenha}>
         <Text style={styles.esqueceuSenha}>Esqueceu a senha?</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.btnLogin}>
+      <TouchableOpacity style={styles.btnLogin} onPress={login}>
         <Text style={styles.loginTexto}>Entrar</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         onPress={mostrarAlertaCadastro}
         style={styles.alertaCadastro}>

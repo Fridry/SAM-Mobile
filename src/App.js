@@ -1,5 +1,9 @@
+import React from 'react';
+import { TouchableOpacity, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Login from './screens/Login/Login';
 import Home from './screens/Home/Home';
@@ -12,15 +16,23 @@ import Confirmacao from './screens/Agendamento/Confirmacao';
 
 const stackNavigator = createStackNavigator(
   {
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
     Home: {
       screen: Home,
       navigationOptions: {
-        title: 'SAM',
-        headerStyle: {
-          backgroundColor: '#2E76BB',
-        },
-        headerTitleStyle: { color: '#FFF' },
-        headerTitleAlign: 'center',
+        headerShown: false,
+        // title: 'SAM',
+        // headerLeft: null,
+        // headerStyle: {
+        //   backgroundColor: '#2E76BB',
+        // },
+        // headerTitleStyle: { color: '#FFF' },
+        // headerTitleAlign: 'center',
       },
     },
     Cancelamento: {
@@ -32,12 +44,6 @@ const stackNavigator = createStackNavigator(
         },
         headerTitleStyle: { color: '#FFF' },
         headerTitleAlign: 'center',
-      },
-    },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        headerShown: false,
       },
     },
     Local: {
@@ -97,7 +103,7 @@ const stackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteKey: 'Home',
+    initialRouteKey: 'Login',
   },
 );
 

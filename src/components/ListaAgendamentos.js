@@ -9,6 +9,8 @@ import {
   Dimensions,
 } from 'react-native';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import api from '../services/api/api';
 
 import AgendaItem from './itemAgendamento';
@@ -21,7 +23,8 @@ const Agenda = ({ navigation }) => {
 
   const resultsApi = async () => {
     try {
-      const response = await api.get('/agenda/usuario/8');
+      const idLogin = await AsyncStorage.getItem('@idLogin');
+      const response = await api.get('/agenda/usuario/' + idLogin);
 
       setResults(response.data);
     } catch (error) {

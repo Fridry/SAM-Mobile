@@ -3,6 +3,8 @@ import { Text, StyleSheet, Dimensions, Alert } from 'react-native';
 import { format } from 'date-fns';
 import { Container, Content, Card, CardItem, Body, Button } from 'native-base';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import api from '../../services/api/api';
 
 const { width: WIDTH } = Dimensions.get('window');
@@ -21,8 +23,9 @@ const Agendamento = ({ navigation }) => {
 
   const criarAgengamento = async () => {
     try {
+      const idLogin = await AsyncStorage.getItem('@idLogin');
       let dados = {
-        idPessoa: 8,
+        idPessoa: idLogin,
         especialidade: dadosEspec.idEspec,
         local: dadosLocal.idLocal,
         dataHora: dataHora, //2020-02-29 08:00:00
