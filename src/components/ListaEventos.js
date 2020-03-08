@@ -4,7 +4,7 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 
 import api from '../services/api/api';
@@ -14,11 +14,13 @@ import EventoItem from './EventoItem';
 const Eventos = () => {
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [carregando, setCarrendo] = useState(false);
 
   const resultsApi = async () => {
     try {
+      setCarrendo(true);
       const response = await api.get('/evento');
-
+      setCarrendo(false);
       setResults(response.data);
     } catch (error) {
       setErrorMessage('Algo de errado ocorreu.');
@@ -32,7 +34,9 @@ const Eventos = () => {
   return (
     <SafeAreaView style={styles.container}>
       {errorMessage ? <Text>{errorMessage}</Text> : null}
-      {!results.length ? (
+      {carregando ? (
+        <ActivityIndicator size="large" color="#2E76BB" />
+      ) : !results.length ? (
         <Text style={styles.textoNenhum}>
           Nenhum evento registrado para os próximos 30 dias
         </Text>

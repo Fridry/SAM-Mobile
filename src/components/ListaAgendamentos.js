@@ -61,6 +61,9 @@ const Agenda = ({ navigation }) => {
                 horario={item.dataHora}
                 navigation={navigation}
                 id={item.id_agendamento}
+                endereco={item.rua}
+                numero={item.numero}
+                telefone={item.telefone}
               />
             );
           }}

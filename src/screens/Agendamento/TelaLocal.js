@@ -64,6 +64,12 @@ const TelaLocal = ({ navigation }) => {
                     })
                   }>
                   <Text style={styles.btnTexto}>{item.nome_local}</Text>
+                  <View
+                    style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <Text style={styles.btnTexto}>
+                      {item.rua}, {item.numero}
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               );
             }}
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
   },
   btnAgendar: {
     width: WIDTH - 45,
-    height: 45,
+    height: 55,
     borderRadius: 25,
     fontSize: 16,
     backgroundColor: '#2E76BB',
@@ -98,6 +104,7 @@ const styles = StyleSheet.create({
     borderColor: '#FFF',
     margin: 10,
     alignSelf: 'center',
+    padding: 5,
   },
   textoNenhum: {
     textAlign: 'center',

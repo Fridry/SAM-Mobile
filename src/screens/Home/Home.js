@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
     <Container>
       <Header hasTabs>
         <Body>
-          <Text style={styles.textoHeader}>Bem vindo {newNome}</Text>
+          <Text style={styles.textoHeader}>Bem-vindo(a) {newNome}</Text>
         </Body>
         <Right>
           <TouchableOpacity onPress={logout}>

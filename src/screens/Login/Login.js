@@ -82,6 +82,8 @@ const Login = ({ navigation }) => {
           underlineColorAndroid="transparent"
           value={usuario}
           onChangeText={setUsuario}
+          autoCorrect={false}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -94,6 +96,8 @@ const Login = ({ navigation }) => {
           underlineColorAndroid="transparent"
           value={senha}
           onChangeText={setSenha}
+          autoCorrect={false}
+          autoCapitalize="none"
         />
       </View>
       <TouchableOpacity onPress={mostrarAlertaSenha}>
@@ -183,5 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+console.disableYellowBox = true;
 
 export default Login;

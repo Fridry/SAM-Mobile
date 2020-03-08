@@ -5,14 +5,25 @@ import {
   StyleSheet,
   Dimensions,
   View,
+  Linking,
 } from 'react-native';
 import { Content, Card, CardItem, Body } from 'native-base';
 import { format, parseISO } from 'date-fns';
 import { formatToTimeZone } from 'date-fns-timezone';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width: WIDTH } = Dimensions.get('window');
 
-const itemAgendamento = ({ navigation, especialidade, local, horario, id }) => {
+const itemAgendamento = ({
+  navigation,
+  especialidade,
+  local,
+  horario,
+  id,
+  endereco,
+  numero,
+  telefone,
+}) => {
   const dataIso = parseISO(horario);
   const novaData = format(dataIso, 'dd/MM/yyyy');
   //const novaHora = format(dataIso, 'HH:mm');
@@ -20,18 +31,50 @@ const itemAgendamento = ({ navigation, especialidade, local, horario, id }) => {
     timeZone: 'America/Sao_Paulo',
   });
 
+  const mapa = () => {
+    Linking.openURL(
+      'https://www.google.com/maps/search/?api=1&query=' +
+        endereco +
+        ',+' +
+        numero,
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Content>
         <Card>
           <CardItem>
             <Body>
-              <Text style={styles.agendaTexto}>
-                Especialidade: {especialidade}
-              </Text>
-              <Text style={styles.agendaTexto}>Local: {local}</Text>
-              <Text style={styles.agendaTexto}>Dia: {novaData}</Text>
-              <Text style={styles.agendaTexto}>Hora: {novaHora}</Text>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Especialidade:</Text>
+                <Text style={styles.agendaDados}>{especialidade}</Text>
+              </View>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Local:</Text>
+                <Text style={styles.agendaDados}>{local}</Text>
+              </View>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Endereço:</Text>
+                <Text style={styles.agendaDados}>
+                  {endereco}, {numero}
+                </Text>
+                <TouchableOpacity style={styles.btnMapa} onPress={mapa}>
+                  <Icon name="map-marker" style={styles.btnTexto} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Telefone:</Text>
+                <Text style={styles.agendaDados}>{telefone}</Text>
+              </View>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Dia:</Text>
+                <Text style={styles.agendaDados}>{novaData}</Text>
+              </View>
+              <View style={styles.viewTexto}>
+                <Text style={styles.agendaTexto}>Hora:</Text>
+                <Text style={styles.agendaDados}>{novaHora}</Text>
+              </View>
             </Body>
           </CardItem>
           <CardItem footer>
@@ -55,8 +98,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   agendaTexto: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 5,
+  },
+  agendaDados: {
+    fontSize: 16,
     textAlign: 'center',
     padding: 5,
   },
@@ -83,6 +131,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: '#FFF',
     margin: 10,
+  },
+  btnMapa: {
+    width: 35,
+    height: 35,
+    backgroundColor: '#2E76BB',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+  },
+  viewTexto: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
