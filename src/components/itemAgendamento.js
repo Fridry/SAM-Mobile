@@ -59,6 +59,8 @@ const itemAgendamento = ({
                 <Text style={styles.agendaDados}>
                   {endereco}, {numero}
                 </Text>
+              </View>
+              <View style={styles.viewBtn}>
                 <TouchableOpacity style={styles.btnMapa} onPress={mapa}>
                   <Icon name="map-marker" style={styles.btnTexto} />
                 </TouchableOpacity>
@@ -93,15 +95,12 @@ const itemAgendamento = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    margin: 10,
   },
   agendaTexto: {
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    padding: 5,
   },
   agendaDados: {
     fontSize: 16,
@@ -145,6 +144,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  viewBtn: {
+    flex: 1,
+    marginLeft: '40%',
+    padding: 5,
   },
 });
 

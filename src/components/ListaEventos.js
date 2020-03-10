@@ -50,6 +50,8 @@ const Eventos = () => {
                 titulo={item.nome_evento}
                 local={item.nome_local}
                 horario={item.dataHoraEvento}
+                endereco={item.rua}
+                numero={item.numero}
                 info={item.informacoes}
               />
             );
